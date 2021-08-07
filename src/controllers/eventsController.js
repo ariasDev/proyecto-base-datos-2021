@@ -30,3 +30,19 @@ exports.getEventsListByCategory = async (req, res, next) => {
         res.status(500).json(error)
     }
 }
+
+exports.addCommenToEvent = async (req, res, next) => {
+    try {
+        res.status(201).json(await eventsService.addComment(req.body))
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+exports.addParticipantToEvent = async (req, res, next) => {
+    try {
+        res.status(201).json(await eventsService.addParticipant(req.body))
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

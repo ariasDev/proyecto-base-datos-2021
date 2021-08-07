@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const EventsSchema = Schema({
+    id: {
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -46,43 +50,8 @@ const EventsSchema = Schema({
             }
         }
     },
-    participants: {
-        id: {
-            type: String,
-            required: false,
-        },
-        userName: {
-            type: String,
-            required: false,
-        },
-        fullName: {
-            type: String,
-            required: false,
-        },
-        rol: {
-            type: String,
-            required: false,
-        },
-        institucionLink: {
-            type: String,
-            required: false,
-        },
-        email: {
-            type: String,
-            required: false,
-        },
-    },
-    comments: {
-        userName: {
-            type: String,
-            required: false,
-        },
-        comment: {
-            type: String,
-            required: false,
-        },
-        required: false
-    }
+    participants: [Object],
+    comments:[Object]
 })
 
 const events = mongoose.model("event", EventsSchema)

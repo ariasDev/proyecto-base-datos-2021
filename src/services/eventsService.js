@@ -1,13 +1,17 @@
 const eventsSchema = require('../schema/eventsSechema')
+const uuid = require('../utilities/uuid')
 
 exports.createEvent = (newEvent) => {
     let eventToCreate = new eventsSchema({
+        id: uuid.generateId(),
         title: newEvent.title,
         description: newEvent.description,
         category: newEvent.category,
         date: newEvent.date,
         campus: newEvent.campus,
         eventSite: newEvent.eventSite,
+        comments: [],
+        participants: []
     })
     return eventToCreate.save()
     .then(resolve => {
@@ -35,4 +39,18 @@ exports.getEventsListByCategory = (category) => {
     .catch(reject => {
         return reject
     })
+}
+
+exports.addComment = (newComment) => {
+    return eventsSchema.updateOne(
+        {id: newComment.eventId},
+        {"$push": { "comments": newComment.comment }}
+    )
+}
+
+exports.addParticipant = (newParticipant) => {
+    return eventsSchema.updateOne(
+        {id: newParticipant.eventId},
+        {"$push": { "participants": newParticipant.participant }}
+    )
 }
